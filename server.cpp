@@ -2,18 +2,15 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-
+#include <unistd.h>
 #include <iostream>
 using namespace std;
 
 
-
-
-int main()
-{
+int main(){
  
  char filename[13]="./myfile.txt";
- int fd=open(filename,  O_RDWR);
+ int fd=open(filename,  O_RD);
  
  if (fd==-1)
  {
@@ -21,7 +18,7 @@ int main()
    return 1;
  }
  
- char *map= (char*) mmap(NULL, 10, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+ char *map= (char*) mmap(NULL, 100, PROT_READ, MAP_SHARED, fd, 0);
  close(fd); //updated
  
  if (map==MAP_FAILED)
